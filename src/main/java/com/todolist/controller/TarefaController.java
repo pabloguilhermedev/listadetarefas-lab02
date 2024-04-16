@@ -1,9 +1,9 @@
 package com.todolist.controller;
 
-import com.lista.controller.dto.request.TarefaRequestDTO;
-import com.lista.controller.dto.response.TarefaResponseDTO;
-import com.lista.entity.TarefaEntity;
-import com.lista.service.ListaService;
+import com.todolist.controller.dto.request.TarefaRequestDTO;
+import com.todolist.controller.dto.response.TarefaResponseDTO;
+import com.todolist.entity.TarefaEntity;
+import com.todolist.service.ListaService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

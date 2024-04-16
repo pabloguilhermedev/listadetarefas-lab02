@@ -1,10 +1,10 @@
 package com.todolist.service;
 
-import com.lista.controller.dto.request.TarefaRequestDTO;
-import com.lista.controller.dto.response.TarefaDTO;
-import com.lista.controller.dto.response.TarefaResponseDTO;
-import com.lista.entity.TarefaEntity;
-import com.lista.repository.TarefaRepository;
+import com.todolist.controller.dto.request.TarefaRequestDTO;
+import com.todolist.controller.dto.response.TarefaDTO;
+import com.todolist.controller.dto.response.TarefaResponseDTO;
+import com.todolist.entity.TarefaEntity;
+import com.todolist.repository.TarefaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
