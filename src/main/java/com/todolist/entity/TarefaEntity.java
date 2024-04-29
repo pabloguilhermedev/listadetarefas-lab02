@@ -30,12 +30,27 @@ public class TarefaEntity {
     private LocalDateTime dataConclusao;
     @Column(name = "status", nullable = false)
     private String status;
+    @Column(name = "tipo_tarefa")
+    private String tipoTarefa;
+    @Column(name = "prioridade")
+    private String prioridade;
 
-    public TarefaEntity(String titulo, String descricao, LocalDateTime dataCriacao, LocalDateTime dataConclusao, String status) {
+    public TarefaEntity(String tipoTarefa, String prioridade) {
+        this.tipoTarefa = tipoTarefa;
+        this.prioridade = prioridade;
+    }
+
+    public TarefaEntity(String titulo, String descricao, LocalDateTime dataCriacao, LocalDateTime dataConclusao,
+                        String status,
+                        String tipoTarefa,
+                        String prioridade) {
+
         this.titulo = titulo;
         this.descricao = descricao;
         this.dataCriacao = dataCriacao;
         this.dataConclusao = dataConclusao;
         this.status = status;
+        this.tipoTarefa = tipoTarefa;
+        this.prioridade = prioridade;
     }
 }

@@ -1,10 +1,11 @@
 package com.todolist.controller;
 
-import com.lista.controller.dto.request.TarefaRequestDTO;
-import com.lista.controller.dto.response.TarefaResponseDTO;
-import com.lista.entity.TarefaEntity;
-import com.lista.service.ListaService;
+import com.todolist.controller.dto.request.TarefaRequestDTO;
+import com.todolist.controller.dto.response.TarefaResponseDTO;
+import com.todolist.entity.TarefaEntity;
+import com.todolist.service.ListaServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class TarefaController {
 
-    private final ListaService listaService;
+    private final ListaServiceImpl listaServiceImpl;
 
-    public TarefaController(ListaService listaService) {
-        this.listaService = listaService;
+    public TarefaController(ListaServiceImpl listaServiceImpl) {
+        this.listaServiceImpl = listaServiceImpl;
     }
 
 
@@ -23,16 +24,16 @@ public class TarefaController {
     @Operation(summary = "Lista todas as tarefas da lista")
     public ResponseEntity<TarefaResponseDTO> getListaTarefas() {
 
-        final var response = listaService.getListaTarefas();
+        final var response = listaServiceImpl.getListaTarefas();
 
         return ResponseEntity.ok(response);
     }
 
     @PostMapping()
     @Operation(summary = "Criar uma lista de tarefas")
-    public ResponseEntity<TarefaEntity> criarListaTarefas(@RequestBody TarefaRequestDTO request) {
+    public ResponseEntity<TarefaEntity> criarListaTarefas(@RequestBody @Valid TarefaRequestDTO request) {
 
-        final var tarefa = listaService.criarListaTarefas(request);
+        final var tarefa = listaServiceImpl.criarListaTarefas(request);
 
         return ResponseEntity.ok(tarefa);
     }
@@ -41,7 +42,7 @@ public class TarefaController {
     @Operation(summary = "Editar uma lista de tarefas")
     public ResponseEntity<TarefaEntity> editarListaTarefas(@RequestBody TarefaRequestDTO request) {
 
-        final var tarefa = listaService.editarListaTarefas(request);
+        final var tarefa = listaServiceImpl.editarListaTarefas(request);
 
         return ResponseEntity.ok(tarefa);
     }
@@ -50,7 +51,7 @@ public class TarefaController {
     @Operation(summary = "Deletar uma tarefa especifica da lista de tarefas ou marcar como concluída")
     public ResponseEntity<String> deletarListaTarefas(@PathVariable Long id) {
 
-        listaService.deletarListaTarefas(id);
+        listaServiceImpl.deletarListaTarefas(id);
 
         return ResponseEntity.ok("Tarefa deletada com sucesso");
     }

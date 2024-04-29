@@ -1,6 +1,6 @@
 package com.todolist.repository;
 
-import com.lista.entity.TarefaEntity;
+import com.todolist.entity.TarefaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

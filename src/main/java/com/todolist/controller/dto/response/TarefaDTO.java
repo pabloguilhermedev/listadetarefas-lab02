@@ -1,6 +1,8 @@
 package com.todolist.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.todolist.entity.enums.PrioridadeTarefaEnum;
+import com.todolist.entity.enums.TipoTarefaEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -24,6 +26,12 @@ public class TarefaDTO {
 
     @JsonProperty("dataConclusao")
     private LocalDateTime dataConclusao;
+
+    @JsonProperty("prioridade")
+    private String prioridadeTarefa;
+
+    @JsonProperty("tipo_tarefa")
+    private String tipoTarefa;
 
     @JsonProperty("status")
     private String status;

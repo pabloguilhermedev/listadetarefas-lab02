@@ -4,5 +4,7 @@ public enum StatusTarefaEnum {
 
     A_FAZER,
     EM_ANDAMENTO,
+
+    PREVISTA,
     CONCLUIDO
 }
