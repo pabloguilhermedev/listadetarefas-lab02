@@ -1,5 +1,6 @@
 package com.todolist.integration;
 
+import com.todolist.TodoListaApplication;
 import com.todolist.controller.dto.request.TarefaRequestDTO;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -7,12 +8,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 @ExtendWith(MockitoExtension.class)
+@SpringBootTest(classes = {TodoListaApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("test")
 public class TarefaControllerIntegrationTest {
 
