@@ -57,7 +57,7 @@ public class TarefaControllerIntegrationTest {
                 .when()
                 .delete("/api/tarefas/{id}", 1)
                 .then()
-                .statusCode(200)
+                .statusCode(204)
                 .body(equalTo("Tarefa deletada com sucesso"));
     }
 }
