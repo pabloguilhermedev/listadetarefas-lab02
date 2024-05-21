@@ -1,11 +1,7 @@
 package com.todolist.unit.service;
 
-import com.todolist.controller.dto.request.TarefaRequestDTO;
-import com.todolist.controller.dto.response.TarefaResponseDTO;
 import com.todolist.entity.TarefaEntity;
-import com.todolist.entity.enums.PrioridadeTarefaEnum;
-import com.todolist.entity.enums.StatusTarefaEnum;
-import com.todolist.entity.enums.TipoTarefaEnum;
+import com.todolist.mock.MockFactory;
 import com.todolist.repository.TarefaRepository;
 import com.todolist.service.ListaServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -36,20 +31,13 @@ class ListaServiceImplTest {
 
     @Test
     void getListaTarefas() {
-        TarefaEntity tarefaEntity = new TarefaEntity();
-        tarefaEntity.setId(1L);
-        tarefaEntity.setTitulo("Test Title");
-        tarefaEntity.setDescricao("Test Description");
-        tarefaEntity.setDataCriacao(LocalDateTime.now());
-        tarefaEntity.setDataConclusao(LocalDateTime.now().plusDays(1));
-        tarefaEntity.setPrioridade("Alta");
-        tarefaEntity.setTipoTarefa(TipoTarefaEnum.DATA.name());
-        tarefaEntity.setStatus(StatusTarefaEnum.PREVISTA.name());
+
+        final var tarefaEntity = MockFactory.tarefaEntityMockFactory();
 
         when(repository.findAll())
                 .thenReturn(Collections.singletonList(tarefaEntity));
 
-        TarefaResponseDTO responseDTO = service.getListaTarefas();
+        final var responseDTO = service.getListaTarefas();
 
         assertNotNull(responseDTO);
         assertEquals(1, responseDTO.getTarefas().size());
@@ -58,24 +46,15 @@ class ListaServiceImplTest {
 
     @Test
     void criarListaTarefas() {
-        TarefaRequestDTO requestDTO = new TarefaRequestDTO();
-        requestDTO.setTitulo("Test Title");
-        requestDTO.setDescricao("Test Description");
-        requestDTO.setDataCriacao(LocalDateTime.now());
-        requestDTO.setDataConclusao(LocalDateTime.now().plusDays(1));
-        requestDTO.setStatus(StatusTarefaEnum.PREVISTA.name());
-        requestDTO.setTipoTarefa(TipoTarefaEnum.DATA);
-        requestDTO.setPrioridadeTarefaEnum(PrioridadeTarefaEnum.ALTA);
 
-        TarefaEntity tarefaEntity = new TarefaEntity();
-        tarefaEntity.setId(1L);
-        tarefaEntity.setTitulo("Test Title");
-        tarefaEntity.setDescricao("Test Description");
+        final var requestDTO = MockFactory.tarefaRequestDTOMockFactory();
+
+        final var tarefaEntity = MockFactory.tarefaEntityMockFactory();
 
         when(repository.save(any(TarefaEntity.class)))
                 .thenReturn(tarefaEntity);
 
-        TarefaEntity result = service.criarListaTarefas(requestDTO);
+        final var result = service.criarListaTarefas(requestDTO);
 
         assertNotNull(result);
         assertEquals(1L, result.getId());
@@ -84,24 +63,15 @@ class ListaServiceImplTest {
 
     @Test
     void editarListaTarefas() {
-        TarefaRequestDTO requestDTO = new TarefaRequestDTO();
-        requestDTO.setTitulo("Updated Title");
-        requestDTO.setDescricao("Updated Description");
-        requestDTO.setDataCriacao(LocalDateTime.now());
-        requestDTO.setDataConclusao(LocalDateTime.now().plusDays(1));
-        requestDTO.setStatus(StatusTarefaEnum.PREVISTA.name());
-        requestDTO.setTipoTarefa(TipoTarefaEnum.DATA);
-        requestDTO.setPrioridadeTarefaEnum(PrioridadeTarefaEnum.ALTA);
 
-        TarefaEntity tarefaEntity = new TarefaEntity();
-        tarefaEntity.setId(1L);
-        tarefaEntity.setTitulo("Updated Title");
-        tarefaEntity.setDescricao("Updated Description");
+        final var requestDTO = MockFactory.tarefaRequestDTOMockFactory();
+
+        final var tarefaEntity = MockFactory.tarefaEntityMockFactory();
 
         when(repository.save(any(TarefaEntity.class)))
                 .thenReturn(tarefaEntity);
 
-        TarefaEntity result = service.editarListaTarefas(requestDTO);
+        final var result = service.editarListaTarefas(requestDTO);
 
         assertNotNull(result);
         assertEquals(1L, result.getId());
@@ -110,11 +80,15 @@ class ListaServiceImplTest {
 
     @Test
     void deletarListaTarefas() {
-        TarefaEntity tarefaEntity = new TarefaEntity();
-        tarefaEntity.setId(1L);
 
-        when(repository.findById(1L)).thenReturn(Optional.of(tarefaEntity));
-        doNothing().when(repository).delete(tarefaEntity);
+        final var tarefaEntity = MockFactory.tarefaEntityMockFactory();
+
+        when(repository.findById(1L))
+                .thenReturn(Optional.of(tarefaEntity));
+
+        doNothing()
+                .when(repository)
+                .delete(tarefaEntity);
 
         service.deletarListaTarefas(1L);
 
@@ -123,11 +97,10 @@ class ListaServiceImplTest {
 
     @Test
     void validarDataConclusao_ThrowsException() {
-        TarefaRequestDTO requestDTO = new TarefaRequestDTO();
-        requestDTO.setTipoTarefa(TipoTarefaEnum.DATA);
-        requestDTO.setDataConclusao(LocalDateTime.now().minusDays(1));
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        final var requestDTO = MockFactory.tarefaRequestDTOMockFactory();
+
+        final var exception = assertThrows(IllegalArgumentException.class,
                 () -> service.criarListaTarefas(requestDTO));
 
         assertEquals("Para tarefas do tipo 'Data', a data de conclusão deve ser igual ou superior à data atual.", exception.getMessage());
@@ -135,19 +108,13 @@ class ListaServiceImplTest {
 
     @Test
     void calcularStatus_ThroughGetListaTarefas() {
-        TarefaEntity tarefaEntity = new TarefaEntity();
-        tarefaEntity.setId(1L);
-        tarefaEntity.setTitulo("Test Title");
-        tarefaEntity.setDescricao("Test Description");
-        tarefaEntity.setDataCriacao(LocalDateTime.now());
-        tarefaEntity.setDataConclusao(LocalDateTime.now().minusDays(1));
-        tarefaEntity.setPrioridade("Alta");
-        tarefaEntity.setTipoTarefa(TipoTarefaEnum.DATA.name());
-        tarefaEntity.setStatus(StatusTarefaEnum.PREVISTA.name());
 
-        when(repository.findAll()).thenReturn(Collections.singletonList(tarefaEntity));
+        final var tarefaEntity = MockFactory.tarefaEntityMockFactory();
 
-        TarefaResponseDTO responseDTO = service.getListaTarefas();
+        when(repository.findAll())
+                .thenReturn(Collections.singletonList(tarefaEntity));
+
+        final var responseDTO = service.getListaTarefas();
 
         assertNotNull(responseDTO);
         assertEquals(1, responseDTO.getTarefas().size());
