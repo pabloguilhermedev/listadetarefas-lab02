@@ -6,6 +6,7 @@ import com.todolist.entity.TarefaEntity;
 import com.todolist.service.ListaServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +54,6 @@ public class TarefaController {
 
         listaServiceImpl.deletarListaTarefas(id);
 
-        return ResponseEntity.ok("Tarefa deletada com sucesso");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Tarefa deletada com sucesso");
     }
 }
