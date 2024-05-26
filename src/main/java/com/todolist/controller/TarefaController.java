@@ -55,6 +55,6 @@ public class TarefaController {
 
         listaServiceImpl.deletarListaTarefas(id);
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Tarefa deletada com sucesso");
+        return ResponseEntity.ok("Tarefa deletada com sucesso");
     }
 }
