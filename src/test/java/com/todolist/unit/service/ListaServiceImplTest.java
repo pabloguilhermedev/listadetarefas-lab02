@@ -1,6 +1,7 @@
 package com.todolist.unit.service;
 
 import com.todolist.entity.TarefaEntity;
+import com.todolist.entity.enums.TipoTarefaEnum;
 import com.todolist.mock.MockFactory;
 import com.todolist.repository.TarefaRepository;
 import com.todolist.service.ListaServiceImpl;
@@ -48,6 +49,7 @@ class ListaServiceImplTest {
     void criarListaTarefas() {
 
         final var requestDTO = MockFactory.tarefaRequestDTOMockFactory();
+        requestDTO.setTipoTarefa(TipoTarefaEnum.LIVRE);
 
         final var tarefaEntity = MockFactory.tarefaEntityMockFactory();
 
