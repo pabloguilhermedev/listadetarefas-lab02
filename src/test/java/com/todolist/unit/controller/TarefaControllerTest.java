@@ -65,13 +65,14 @@ class TarefaControllerTest {
     void editarListaTarefas() {
 
         final var requestDTO = MockFactory.tarefaRequestDTOMockFactory();
+        final var id = 1L;
 
         final var tarefaEntity = MockFactory.tarefaEntityMockFactory();
 
-        when(listaServiceImpl.editarListaTarefas(any(TarefaRequestDTO.class)))
+        when(listaServiceImpl.editarListaTarefas(any(TarefaRequestDTO.class), id))
                 .thenReturn(tarefaEntity);
 
-        final var response = tarefaController.editarListaTarefas(requestDTO);
+        final var response = tarefaController.editarListaTarefas(requestDTO, id);
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());

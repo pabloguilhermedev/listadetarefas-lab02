@@ -39,11 +39,12 @@ public class TarefaController {
         return ResponseEntity.ok(tarefa);
     }
 
-    @PutMapping()
+    @PutMapping("/{id}")
     @Operation(summary = "Editar uma lista de tarefas")
-    public ResponseEntity<TarefaEntity> editarListaTarefas(@RequestBody TarefaRequestDTO request) {
+    public ResponseEntity<TarefaEntity> editarListaTarefas(@RequestBody TarefaRequestDTO request,
+                                                           @PathVariable Long id) {
 
-        final var tarefa = listaServiceImpl.editarListaTarefas(request);
+        final var tarefa = listaServiceImpl.editarListaTarefas(request, id);
 
         return ResponseEntity.ok(tarefa);
     }
