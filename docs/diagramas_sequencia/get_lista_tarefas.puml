@@ -1,0 +1,17 @@
+@startuml
+actor Client
+participant "Controller" as C
+participant "ListaServiceImpl" as S
+participant "Repository" as R
+participant "TarefaResponseDTO" as TDTO
+
+Client -> C: GET /api/tarefas
+C -> S: getListaTarefas()
+S -> R: findAll()
+R --> S: List<Tarefa>
+S -> S: convertToTarefaDTO()
+S -> S: collect(Collectors.toList())
+S --> C: TarefaResponseDTO
+C -> TDTO: ResponseEntity.ok(response)
+TDTO --> Client: 200 OK (TarefaResponseDTO)
+@enduml

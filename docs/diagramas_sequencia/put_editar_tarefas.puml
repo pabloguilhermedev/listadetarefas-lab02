@@ -1,0 +1,41 @@
+@startuml
+actor Client
+participant "Controller" as C
+participant "ListaServiceImpl" as S
+participant "Repository" as R
+participant "TarefaRequestDTO" as ReqDTO
+participant "TarefaEntity" as Ent
+
+Client -> C: PUT /api/tarefas/{id}
+activate C
+C -> ReqDTO: new TarefaRequestDTO()
+C -> S: editarListaTarefas(request, id)
+activate S
+S -> S: validarDataConclusao(request)
+S -> R: findById(id)
+activate R
+R --> S: Optional<TarefaEntity>
+deactivate R
+
+alt Tarefa Encontrada
+    S -> Ent: setTitulo(request.getTitulo())
+    S -> Ent: setDescricao(request.getDescricao())
+    S -> Ent: setDataCriacao(request.getDataCriacao())
+    S -> Ent: setDataConclusao(request.getDataConclusao())
+    S -> Ent: setStatus(request.getStatus())
+    S -> Ent: setTipoTarefa(request.getTipoTarefa().name())
+    S -> Ent: setPrioridade(request.getPrioridadeTarefaEnum().name())
+    S -> R: save(tarefa.get())
+    activate R
+    R --> S: TarefaEntity
+    deactivate R
+    S --> C: TarefaEntity
+else Tarefa Não Encontrada
+    S --> C: null
+end
+deactivate S
+
+C -> TarefaEntity: ResponseEntity.ok(tarefa)
+TarefaEntity --> Client: 200 OK (TarefaEntity)
+deactivate C
+@enduml
