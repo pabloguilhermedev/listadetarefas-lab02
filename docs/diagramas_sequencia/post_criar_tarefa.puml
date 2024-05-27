@@ -1,0 +1,25 @@
+@startuml
+actor Client
+participant "Controller" as C
+participant "ListaServiceImpl" as S
+participant "Repository" as R
+participant "TarefaRequestDTO" as ReqDTO
+participant "TarefaEntity" as Ent
+
+Client -> C: POST /api/tarefas
+activate C
+C -> ReqDTO: new TarefaRequestDTO()
+C -> S: criarListaTarefas(request)
+activate S
+S -> S: validarDataConclusao(request)
+S -> Ent: new TarefaEntity(request)
+S -> R: save(tarefa)
+activate R
+R --> S: TarefaEntity
+deactivate R
+S --> C: TarefaEntity
+deactivate S
+C -> TarefaEntity: ResponseEntity.ok(tarefa)
+TarefaEntity --> Client: 200 OK (TarefaEntity)
+deactivate C
+@enduml
