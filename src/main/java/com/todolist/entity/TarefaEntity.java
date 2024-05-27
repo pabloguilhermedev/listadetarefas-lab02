@@ -53,4 +53,6 @@ public class TarefaEntity {
         this.tipoTarefa = tipoTarefa;
         this.prioridade = prioridade;
     }
+
+
 }

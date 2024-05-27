@@ -60,21 +60,25 @@ public class ListaServiceImpl {
         return repository.save(tarefa);
     }
 
-    public TarefaEntity editarListaTarefas(TarefaRequestDTO request) {
+    public TarefaEntity editarListaTarefas(TarefaRequestDTO request, Long id) {
 
         validarDataConclusao(request);
 
-        final var tarefa = new TarefaEntity(
-                request.getTitulo(),
-                request.getDescricao(),
-                request.getDataCriacao(),
-                request.getDataConclusao(),
-                request.getStatus(),
-                request.getTipoTarefa().name(),
-                request.getPrioridadeTarefaEnum().name()
-        );
+        var tarefa = repository.findById(id);
 
-        return repository.save(tarefa);
+        if (tarefa.isEmpty()) {
+            return null;
+        }
+
+        tarefa.get().setTitulo(request.getTitulo());
+        tarefa.get().setDescricao(request.getDescricao());
+        tarefa.get().setDataCriacao(request.getDataCriacao());
+        tarefa.get().setDataConclusao(request.getDataConclusao());
+        tarefa.get().setStatus(request.getStatus());
+        tarefa.get().setTipoTarefa(request.getTipoTarefa().name());
+        tarefa.get().setPrioridade(request.getPrioridadeTarefaEnum().name());
+
+        return repository.save(tarefa.get());
     }
 
     private void validarDataConclusao(TarefaRequestDTO request) {

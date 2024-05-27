@@ -1,6 +1,7 @@
 package com.todolist.unit.service;
 
 import com.todolist.entity.TarefaEntity;
+import com.todolist.entity.enums.TipoTarefaEnum;
 import com.todolist.mock.MockFactory;
 import com.todolist.repository.TarefaRepository;
 import com.todolist.service.ListaServiceImpl;
@@ -48,6 +49,7 @@ class ListaServiceImplTest {
     void criarListaTarefas() {
 
         final var requestDTO = MockFactory.tarefaRequestDTOMockFactory();
+        requestDTO.setTipoTarefa(TipoTarefaEnum.LIVRE);
 
         final var tarefaEntity = MockFactory.tarefaEntityMockFactory();
 
@@ -64,14 +66,17 @@ class ListaServiceImplTest {
     @Test
     void editarListaTarefas() {
 
-        final var requestDTO = MockFactory.tarefaRequestDTOMockFactory();
-
+        final var requestDTO = MockFactory.tarefaRequestDTOEditMockFactory();
         final var tarefaEntity = MockFactory.tarefaEntityMockFactory();
+        final var id = 1L;
+
+        when(repository.findById(1L))
+                .thenReturn(Optional.of(tarefaEntity));
 
         when(repository.save(any(TarefaEntity.class)))
                 .thenReturn(tarefaEntity);
 
-        final var result = service.editarListaTarefas(requestDTO);
+        final var result = service.editarListaTarefas(requestDTO, id);
 
         assertNotNull(result);
         assertEquals(1L, result.getId());

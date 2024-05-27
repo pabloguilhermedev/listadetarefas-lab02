@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/tarefas")
+@RequestMapping("/tarefas")
 @RestController
 public class TarefaController {
 
@@ -39,11 +39,12 @@ public class TarefaController {
         return ResponseEntity.ok(tarefa);
     }
 
-    @PutMapping()
+    @PutMapping("/{id}")
     @Operation(summary = "Editar uma lista de tarefas")
-    public ResponseEntity<TarefaEntity> editarListaTarefas(@RequestBody TarefaRequestDTO request) {
+    public ResponseEntity<TarefaEntity> editarListaTarefas(@RequestBody TarefaRequestDTO request,
+                                                           @PathVariable Long id) {
 
-        final var tarefa = listaServiceImpl.editarListaTarefas(request);
+        final var tarefa = listaServiceImpl.editarListaTarefas(request, id);
 
         return ResponseEntity.ok(tarefa);
     }
@@ -54,6 +55,6 @@ public class TarefaController {
 
         listaServiceImpl.deletarListaTarefas(id);
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Tarefa deletada com sucesso");
+        return ResponseEntity.ok("Tarefa deletada com sucesso");
     }
 }

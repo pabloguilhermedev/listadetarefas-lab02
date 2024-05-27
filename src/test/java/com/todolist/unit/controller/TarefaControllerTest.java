@@ -3,6 +3,7 @@ package com.todolist.unit.controller;
 import com.todolist.controller.TarefaController;
 import com.todolist.controller.dto.request.TarefaRequestDTO;
 import com.todolist.controller.dto.response.TarefaResponseDTO;
+import com.todolist.entity.enums.TipoTarefaEnum;
 import com.todolist.mock.MockFactory;
 import com.todolist.service.ListaServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,15 +64,14 @@ class TarefaControllerTest {
 
     @Test
     void editarListaTarefas() {
-
         final var requestDTO = MockFactory.tarefaRequestDTOMockFactory();
-
+        final var id = 1L;
         final var tarefaEntity = MockFactory.tarefaEntityMockFactory();
 
-        when(listaServiceImpl.editarListaTarefas(any(TarefaRequestDTO.class)))
+        when(listaServiceImpl.editarListaTarefas(any(TarefaRequestDTO.class), eq(id)))
                 .thenReturn(tarefaEntity);
 
-        final var response = tarefaController.editarListaTarefas(requestDTO);
+        final var response = tarefaController.editarListaTarefas(requestDTO, id);
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -88,7 +88,7 @@ class TarefaControllerTest {
         final var response = tarefaController.deletarListaTarefas(1L);
 
         assertNotNull(response);
-        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Tarefa deletada com sucesso", response.getBody());
     }
 }

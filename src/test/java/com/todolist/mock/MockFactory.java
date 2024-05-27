@@ -16,6 +16,18 @@ public class MockFactory {
                 .setTitulo("Test Title")
                 .setDescricao("Test Description")
                 .setDataCriacao(LocalDateTime.now())
+                .setDataConclusao(LocalDateTime.now())
+                .setStatus("PREVISTA")
+                .setTipoTarefa(TipoTarefaEnum.DATA)
+                .setPrioridadeTarefaEnum(PrioridadeTarefaEnum.MEDIA);
+    }
+
+    public static TarefaRequestDTO tarefaRequestDTOEditMockFactory() {
+
+        return new TarefaRequestDTO()
+                .setTitulo("Updated Title")
+                .setDescricao("Test Description")
+                .setDataCriacao(LocalDateTime.now())
                 .setDataConclusao(LocalDateTime.now().plusDays(1))
                 .setStatus("PREVISTA")
                 .setTipoTarefa(TipoTarefaEnum.DATA)
