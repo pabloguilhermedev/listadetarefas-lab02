@@ -1,25 +1,26 @@
 import { useState, useEffect } from 'react';
 import { toDoListService } from '../services/toDoListService';
 import { TaskProps } from '../components/Task';
-import TaskMockData from '../common/mock/mockDataTask.json';
 import { CreateTasksRequestDTO, UpdateTasksRequestDTO } from '../services/toDoListService';
 
 export const useToDoList = () => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
   const [createTaskFormData, setCreateTaskFormData] = useState<CreateTasksRequestDTO>({
-    titulo: '',
-    descricao: '',
+    title: '',
+    description: '',
     priority: '', 
-    data_conclusao: '',
+    date: '',
   });
   const [isEditTaskModalOpen, setIsEditTaskModalOpen] = useState(false);
   const [editTaskFormData, setEditTaskFormData] = useState<UpdateTasksRequestDTO>({
-    titulo: '',
-    descricao: '',
+    title: '',
+    description: '',
     priority: '',
-    data_conclusao: '',
+    date: '',
+    status: '',
   });
+
 
   const { deleteTask, updateTask, getTasks, createTask } = toDoListService();
   
@@ -31,7 +32,7 @@ export const useToDoList = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const tasks = TaskMockData;
+      const tasks = getTasks();
       if (tasks) {
         setTasks(tasks);
       }

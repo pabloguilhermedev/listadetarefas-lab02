@@ -51,19 +51,19 @@ export const Task: React.FC<TaskProps> = ({ id, title, description, priority, da
         <span>{status}</span>
       </div>
       <Modal isOpen={isEditTaskModalOpen} onClose={closeEditTaskModal}>
-        <h2 className="text-3xl font-bold mb-4 text-main-color text-center">Criar tarefa</h2>
+        <h2 className="text-3xl font-bold mb-4 text-main-color text-center">Alterar tarefa</h2>
         <form>
           <div className="mb-4">
             <label htmlFor="title" className="block text-md text-main-color font-bold">Título</label>
-            <input value={editTaskFormData.title} onChange={handleEditTaskFormChange} type="text" id="title" name="title" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            <input value={editTaskFormData.title} onChange={handleEditTaskFormChange} type="text" id="title" name="title" className="bg-secundary-color mt-1 block w-full px-3 py-2 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </div>
           <div className="mb-4">
             <label htmlFor="description" className="block text-md text-main-color font-bold">Descrição</label>
-            <textarea value={editTaskFormData.description} onChange={handleEditTaskFormChange} id="description" name="description" className="h-36 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            <textarea value={editTaskFormData.description} onChange={handleEditTaskFormChange} id="description" name="description" className="bg-secundary-color h-36 mt-1 block w-full px-3 py-2 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </div>
           <div className="mb-4">
             <label htmlFor="priority" className="block text-md text-main-color font-bold">Prioridade</label>
-            <select value={editTaskFormData.priority} onChange={handleEditTaskFormChange} id="priority" name="priority" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <select value={editTaskFormData.priority} onChange={handleEditTaskFormChange} id="priority" name="priority" className="bg-secundary-color mt-1 block w-full px-3 py-2 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
               {priorityOptions.map((priority, index) => (
                 <option key={index} value={priority}>
                   {priority}
@@ -73,7 +73,7 @@ export const Task: React.FC<TaskProps> = ({ id, title, description, priority, da
           </div>
           <div className="mb-4">
             <label htmlFor="status" className="block text-md text-main-color font-bold">Status</label>
-            <select value={editTaskFormData.status} onChange={handleEditTaskFormChange} id="status" name="status" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <select value={editTaskFormData.status} onChange={handleEditTaskFormChange} id="status" name="status" className="bg-secundary-color mt-1 block w-full px-3 py-2 text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
               {statusOptions.map((status, index) => (
                 <option key={index} value={status}>
                   {status}
@@ -83,9 +83,9 @@ export const Task: React.FC<TaskProps> = ({ id, title, description, priority, da
           </div>
           <div className="mb-4">
             <label htmlFor="date" className="block text-md text-main-color font-bold">Data de previsão </label>
-            <input value={editTaskFormData.date} onChange={handleEditTaskFormChange} type="date" id="date" name="date" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            <input value={editTaskFormData.date} onChange={handleEditTaskFormChange} type="date" id="date" name="date" className="bg-secundary-color mt-1 block w-full px-3 py-2 border text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </div>
-          <button onClick={() => handleUpdateTask(id)} type="submit" className="px-4 inline-block w-full py-2 bg-main-color text-white rounded-lg hover:bg-main-color-hover">Cadastrar</button>
+          <button onClick={() => handleUpdateTask(id)} type="submit" className="mt-10 px-4 inline-block w-full py-2 bg-main-color text-white rounded-lg hover:bg-main-color-hover">Cadastrar</button>
         </form>
       </Modal>
     </div>
