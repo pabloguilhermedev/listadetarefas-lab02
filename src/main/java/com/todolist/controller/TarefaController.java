@@ -6,10 +6,10 @@ import com.todolist.entity.TarefaEntity;
 import com.todolist.service.ListaServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RequestMapping("/tarefas")
 @RestController
 public class TarefaController {

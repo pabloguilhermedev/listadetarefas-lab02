@@ -9,14 +9,13 @@ export interface TaskProps {
   id: number;
   titulo: string;
   descricao: string;
-  dataCriacao: string;
   dataConclusao: string;
   prioridade: string;
   tipo_tarefa: string;
   status: string;
 }
 
-export const Task: React.FC<TaskProps> = ({ id, title, description, priority, date, status }) => {
+export const Task: React.FC<TaskProps> = ({ id, titulo, descricao, prioridade, dataConclusao, status }) => {
   const priorityOptions = Object.values(TaskPriorityEnum);
   const statusOptions = Object.values(TaskStatusEnum);
 
@@ -27,9 +26,9 @@ export const Task: React.FC<TaskProps> = ({ id, title, description, priority, da
   return (
     <div className="w-96 p-10 border rounded-xl bg-background-task h-96">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-main-color text-3xl font-bold">{title}</h1>
+        <h1 className="text-main-color text-3xl font-bold">{titulo}</h1>
         <div className="flex space-x-4">
-          <button onClick={() => loadTaskData({ id, title, description, priority, date, status })}>
+          <button onClick={() => loadTaskData({ id, titulo, descricao, prioridade, dataConclusao, status })}>
             <RiPencilLine className="text-gray-500 hover:text-gray-700 cursor-pointer" size={24} />
           </button>
           <button onClick={() => handleDeleteTask(id)}>
@@ -37,14 +36,14 @@ export const Task: React.FC<TaskProps> = ({ id, title, description, priority, da
           </button>
         </div>
       </div>
-      <p className="mb-8 mt-8">{description}</p>
+      <p className="mb-8 mt-8">{descricao}</p>
       <div className="mt-2">
-        <strong className="text-main-color">Priority: </strong>
-        <span>{priority}</span>
+        <strong className="text-main-color">Prioridade: </strong>
+        <span>{prioridade}</span>
       </div>
       <div className="mt-2">
-        <strong className="text-main-color">Date: </strong>
-        <span>{date}</span>
+        <strong className="text-main-color">Data de Previsão: </strong>
+        <span>{dataConclusao}</span>
       </div>
       <div className="mt-2">
         <strong className="text-main-color">Status: </strong>
@@ -83,7 +82,7 @@ export const Task: React.FC<TaskProps> = ({ id, title, description, priority, da
           </div>
           <div className="mb-4">
             <label htmlFor="date" className="block text-md text-main-color font-bold">Data de previsão </label>
-            <input value={editTaskFormData.date} onChange={handleEditTaskFormChange} type="date" id="date" name="date" className="bg-secundary-color mt-1 block w-full px-3 py-2 border text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            <input value={editTaskFormData.date} onChange={handleEditTaskFormChange} type="date" id="dataConclusao" name="dataConclusao" className="bg-secundary-color mt-1 block w-full px-3 py-2 border text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
           </div>
           <button onClick={() => handleUpdateTask(id)} type="submit" className="mt-10 px-4 inline-block w-full py-2 bg-main-color text-white rounded-lg hover:bg-main-color-hover">Cadastrar</button>
         </form>

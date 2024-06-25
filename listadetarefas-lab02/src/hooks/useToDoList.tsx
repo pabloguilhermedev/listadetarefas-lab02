@@ -7,20 +7,19 @@ export const useToDoList = () => {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
   const [createTaskFormData, setCreateTaskFormData] = useState<CreateTasksRequestDTO>({
-    title: '',
-    description: '',
-    priority: '', 
-    date: '',
+    titulo: '',
+    descricao: '',
+    prioridade: '',
+    dataConclusao: '',
   });
   const [isEditTaskModalOpen, setIsEditTaskModalOpen] = useState(false);
   const [editTaskFormData, setEditTaskFormData] = useState<UpdateTasksRequestDTO>({
-    title: '',
-    description: '',
-    priority: '',
-    date: '',
+    titulo: '',
+    descricao: '',
+    prioridade: '',
+    dataConclusao: '',
     status: '',
   });
-
 
   const { deleteTask, updateTask, getTasks, createTask } = toDoListService();
   
@@ -29,19 +28,19 @@ export const useToDoList = () => {
   const openEditTaskModal = () => setIsEditTaskModalOpen(true);
   const closeEditTaskModal = () => setIsEditTaskModalOpen(false);
 
-
   useEffect(() => {
     const fetchTasks = async () => {
-      const tasks = getTasks();
-      if (tasks) {
-        setTasks(tasks);
+      const fetchedTasks = await getTasks();
+      if (Array.isArray(fetchedTasks)) {
+        setTasks(fetchedTasks);
       }
     };
-    
+
     fetchTasks();
   }, []);
 
-  const handleCreateTask = async () => {
+  const handleCreateTask = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
       const response = await createTask(createTaskFormData);
       if(response) {
@@ -49,7 +48,7 @@ export const useToDoList = () => {
         setIsCreateTaskModalOpen(false);
         setTimeout(() => {
           window.location.reload();
-        }, 300)
+        }, 300);
       }
     } catch (error) {
       alert(`Erro ao criar tarefa: ${error}`);
@@ -62,7 +61,6 @@ export const useToDoList = () => {
       ...createTaskFormData,
       [name]: value,
     });
-    console.log(createTaskFormData)
   };
 
   const handleEditTaskFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -73,7 +71,8 @@ export const useToDoList = () => {
     });
   };
 
-  const handleUpdateTask = async (id: number) => {
+  const handleUpdateTask = async (e: React.FormEvent, id: number) => {
+    e.preventDefault();
     try {
       const response = await updateTask(editTaskFormData, id);
       if (response) {
@@ -87,13 +86,13 @@ export const useToDoList = () => {
       alert(`Erro ao atualizar tarefa: ${error}`);
     }
   };
-  
+
   const loadTaskData = (task: TaskProps) => {
     setEditTaskFormData({
-      title: task.title,
-      description: task.description,
-      priority: task.priority,
-      date: task.date,
+      titulo: task.titulo,
+      descricao: task.descricao,
+      prioridade: task.prioridade,
+      dataConclusao: task.dataConclusao,
       status: task.status,
     });
     openEditTaskModal();
@@ -109,12 +108,24 @@ export const useToDoList = () => {
         }, 300);
       }
     } catch (error) {
-      alert(`Erro ao atualizar tarefa: ${error}`);
+      alert(`Erro ao deletar tarefa: ${error}`);
     }
-  }
+  };
 
-  return { tasks, isCreateTaskModalOpen, openCreateTaskModal, closeCreateTaskModal, handleCreateTask,
-     createTaskFormData, handleCreateTaskFormChange, loadTaskData, handleUpdateTask, isEditTaskModalOpen, 
-     closeEditTaskModal, handleEditTaskFormChange, editTaskFormData, handleDeleteTask
-    };
+  return {
+    tasks,
+    isCreateTaskModalOpen,
+    openCreateTaskModal,
+    closeCreateTaskModal,
+    handleCreateTask,
+    createTaskFormData,
+    handleCreateTaskFormChange,
+    loadTaskData,
+    handleUpdateTask,
+    isEditTaskModalOpen,
+    closeEditTaskModal,
+    handleEditTaskFormChange,
+    editTaskFormData,
+    handleDeleteTask,
+  };
 };

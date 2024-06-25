@@ -10,6 +10,6 @@ import java.util.List;
 @Accessors(chain = true)
 public class TarefaResponseDTO {
 
-    @JsonProperty("tarefas")
+    @JsonProperty("tasks")
     private List<TarefaDTO> tarefas;
 }

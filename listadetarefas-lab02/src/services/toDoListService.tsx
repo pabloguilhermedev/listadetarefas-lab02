@@ -7,25 +7,26 @@ export interface GetTasksResponseDTO {
 }
 
 export interface CreateTasksRequestDTO {
-  title: string,
-  description: string,
-  priority: string, 
-  date: string,
+  titulo: string,
+  descricao: string,
+  status: string,
+  tipo_tarefa: string,
+  prioridade: string,
 }
 
 export interface UpdateTasksRequestDTO {
-  title: string,
-  description: string,
-  priority: string,
-  date: string,
+  titulo: string,
+  descricao: string,
   status: string,
+  tipo_tarefa: string,
+  prioridade: string,
 }
 
 export const toDoListService = () => {
 
     const getTasks = async (): Promise<TaskProps[] | undefined> => {
         try {
-          const response: AxiosResponse<GetTasksResponseDTO> = await axiosInstance.get<GetTasksResponseDTO>('tasks');
+          const response: AxiosResponse<GetTasksResponseDTO> = await axiosInstance.get<GetTasksResponseDTO>('tarefas');
           return response.data.tasks;
         } catch (error) {
           console.error(error);
@@ -34,7 +35,7 @@ export const toDoListService = () => {
 
     const createTask = async (newTask: CreateTasksRequestDTO): Promise<CreateTasksRequestDTO | undefined> => {
       try {
-        const response: AxiosResponse<CreateTasksRequestDTO> = await axiosInstance.post<CreateTasksRequestDTO>('tasks', newTask);
+        const response: AxiosResponse<CreateTasksRequestDTO> = await axiosInstance.post<CreateTasksRequestDTO>('tarefas', newTask);
         return response.data;
       } catch (error) {
         console.error(error);
@@ -43,7 +44,7 @@ export const toDoListService = () => {
 
     const updateTask = async (updatedTask: UpdateTasksRequestDTO, id: number): Promise<TaskProps | undefined> => {
       try {
-          const response: AxiosResponse<TaskProps> = await axiosInstance.put<TaskProps>(`tasks/${id}`, updatedTask);
+          const response: AxiosResponse<TaskProps> = await axiosInstance.put<TaskProps>(`tarefas/${id}`, updatedTask);
           return response.data;
       } catch (error) {
           console.error(error);
@@ -52,7 +53,7 @@ export const toDoListService = () => {
 
     const deleteTask = async (id: number): Promise<TaskProps | undefined> => {
       try {
-        const response: AxiosResponse<TaskProps> = await axiosInstance.delete<TaskProps>(`tasks/${id}`);
+        const response: AxiosResponse<TaskProps> = await axiosInstance.delete<TaskProps>(`tarefas/${id}`);
         return response.data;
       } catch (error) {
         console.error(error);
