@@ -50,7 +50,7 @@ public class ListaServiceImpl {
         final var tarefa = new TarefaEntity(
                 request.getTitulo(),
                 request.getDescricao(),
-                request.getDataCriacao(),
+                LocalDateTime.now(),
                 request.getDataConclusao(),
                 request.getStatus(),
                 request.getTipoTarefa().name(),
@@ -72,7 +72,7 @@ public class ListaServiceImpl {
 
         tarefa.get().setTitulo(request.getTitulo());
         tarefa.get().setDescricao(request.getDescricao());
-        tarefa.get().setDataCriacao(request.getDataCriacao());
+        tarefa.get().setDataCriacao(LocalDateTime.now());
         tarefa.get().setDataConclusao(request.getDataConclusao());
         tarefa.get().setStatus(request.getStatus());
         tarefa.get().setTipoTarefa(request.getTipoTarefa().name());

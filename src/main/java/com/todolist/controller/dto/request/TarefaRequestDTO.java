@@ -22,17 +22,14 @@ public class TarefaRequestDTO {
     @JsonProperty("descricao")
     private String descricao;
 
-    @JsonProperty("dataCriacao")
-    private LocalDateTime dataCriacao;
-
-    @JsonProperty("data_conclusao")
+    @JsonProperty("dataConclusao")
     private LocalDateTime dataConclusao;
 
     @JsonProperty("status")
-    private String status;
+    private String status = "Em andamento";
 
     @JsonProperty("tipo_tarefa")
-    private TipoTarefaEnum tipoTarefa;
+    private TipoTarefaEnum tipoTarefa = TipoTarefaEnum.LIVRE;
 
     @JsonProperty("prioridade")
     private PrioridadeTarefaEnum prioridadeTarefaEnum;

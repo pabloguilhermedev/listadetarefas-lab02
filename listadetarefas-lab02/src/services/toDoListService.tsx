@@ -10,7 +10,6 @@ export interface CreateTasksRequestDTO {
   titulo: string,
   descricao: string,
   status: string,
-  tipo_tarefa: string,
   prioridade: string,
 }
 
@@ -18,7 +17,6 @@ export interface UpdateTasksRequestDTO {
   titulo: string,
   descricao: string,
   status: string,
-  tipo_tarefa: string,
   prioridade: string,
 }
 
